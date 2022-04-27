@@ -23,5 +23,5 @@ npm run lint
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-### deployed app-beer on netlify:
+### Working build of the application:
 https://choose-a-beer.netlify.app/
