@@ -25,8 +25,8 @@
         <h4>Алк:</h4>
         {{ data.alcohol }}
       </div>
-      <div>
-        <h4 className="text__block">IBU:</h4>
+      <div className="text__block">
+        <h4>IBU:</h4>
         {{ data.ibu }}
       </div>
       <div className="text__block">
@@ -51,18 +51,10 @@ export default {
     const error = ref(null);
 
     const fetchData = () => {
-      console.log("fetchData call");
       loading.value = true;
-      return fetch("https://random-data-api.com/api/beer/random_beer", {
-        method: "get",
-        headers: {
-          "content-type": "application/json",
-        },
-      })
+      return fetch("https://random-data-api.com/api/beer/random_beer")
         .then((res) => {
-          // a non-200 response code
           if (!res.ok) {
-            // create error instance with HTTP status text
             const error = new Error(res.statusText);
             error.json = res.json();
             throw error;
@@ -70,15 +62,12 @@ export default {
           return res.json();
         })
         .then((json) => {
-          // set the response data
           data.value = json;
         })
         .catch((err) => {
           error.value = err;
-          // In case a custom JSON error response was provided
           if (err.json) {
             return err.json.then((json) => {
-              // set the JSON response message
               error.value.message = json.message;
             });
           }
@@ -105,29 +94,16 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .beer {
-  min-width: 350px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.container {
-  margin: 0 10px;
-  max-width: 100%;
-  align-items: center;
-  justify-content: center;
-  color: black;
-  padding: 10px;
-  border-radius: 10px;
-  box-shadow: 10px 10px 4px rgba(45, 36, 102, 0.5);
-  position: relative;
+  width: 300px;
   background: #ffffff;
-  opacity: 85%;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 5px;
 }
 
 h4 {
   margin: 0;
+  padding-right: 5px;
   font-weight: 900;
 }
 
@@ -143,7 +119,7 @@ h4 {
   padding: 10px;
   border: none;
   box-shadow: 1px 1px 4px rgba(45, 36, 102, 0.5);
-  margin: 15px;
+  margin: 15px 0 5px;
 }
 
 .button:hover {

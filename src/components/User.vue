@@ -1,44 +1,37 @@
 <template>
   <div className="user">
     <div className="container" v-if="!loading && data">
-      <div className="card__wrapper">
-        <div className="card__block">
-          <a href="#" className="card__item">
-            <div className="front">
-              <img
-                className="card__img"
-                src="@/components/image/avatar.png"
-                alt="avatar"
-              />
-              <div className="card__name">
-                {{ data.first_name }} {{ data.last_name }}
-              </div>
-              <div className="card__text">
-                Должность: {{ data.employment.title }}
-              </div>
-            </div>
-            <div className="back">
-              <div className="card__text">
-                <h4>Email:</h4>
-                {{ data.email }}
-              </div>
-              <div className="card__text">
-                <h4>Телефон:</h4>
-                {{ data.phone_number }}
-              </div>
-              <div className="card__text">
-                <h4>Дата рождения:</h4>
-                {{ data.date_of_birth }}
-              </div>
-              <div className="card__text">
-                <h4>Адрес:</h4>
-                {{ data.address.zip_code }} {{ data.address.country }}
-                {{ data.address.state }} {{ data.address.city }}
-                {{ data.address.street_name }}
-                {{ data.address.street_address }}
-              </div>
-            </div>
-          </a>
+      <div className="front">
+        <img
+          className="card__img"
+          :src="data.avatar"
+          alt="avatar"
+          @error="defaultAvatar"
+        />
+        <div className="card__name">
+          {{ data.first_name }} {{ data.last_name }}
+        </div>
+        <div className="card__text">Должность: {{ data.employment.title }}</div>
+      </div>
+      <div className="back">
+        <div className="card__text">
+          <h4>Email:</h4>
+          {{ data.email }}
+        </div>
+        <div className="card__text">
+          <h4>Телефон:</h4>
+          {{ data.phone_number }}
+        </div>
+        <div className="card__text">
+          <h4>Дата рождения:</h4>
+          {{ data.date_of_birth }}
+        </div>
+        <div className="card__text">
+          <h4>Адрес:</h4>
+          {{ data.address.zip_code }} {{ data.address.country }}
+          {{ data.address.state }} {{ data.address.city }}
+          {{ data.address.street_name }}
+          {{ data.address.street_address }}
         </div>
       </div>
     </div>
@@ -48,10 +41,16 @@
 
 <script>
 import { ref, onMounted } from "vue";
+import img from "@/assets/avatar.png";
 
 export default {
   name: "UserComponent",
   props: {},
+  methods: {
+    defaultAvatar(e) {
+      e.target.src = img;
+    },
+  },
   setup() {
     const data = ref(null);
     const loading = ref(true);
@@ -59,16 +58,9 @@ export default {
 
     function fetchData() {
       loading.value = true;
-      return fetch("https://random-data-api.com/api/users/random_user", {
-        method: "get",
-        headers: {
-          "content-type": "application/json",
-        },
-      })
+      return fetch("https://random-data-api.com/api/users/random_user")
         .then((res) => {
-          // a non-200 response code
           if (!res.ok) {
-            // create error instance with HTTP status text
             const error = new Error(res.statusText);
             error.json = res.json();
             throw error;
@@ -76,15 +68,12 @@ export default {
           return res.json();
         })
         .then((json) => {
-          // set the response data
           data.value = json;
         })
         .catch((err) => {
           error.value = err;
-          // In case a custom JSON error response was provided
           if (err.json) {
             return err.json.then((json) => {
-              // set the JSON response message
               error.value.message = json.message;
             });
           }
@@ -110,38 +99,22 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .user {
-  min-width: 300px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 300px;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 5px;
 }
 
 .container {
-  padding: 0 15px;
-  margin: 0 30px;
-}
-
-.card__wrapper {
-  display: flex;
-  margin: 0 -15px;
-}
-
-.card__block {
-  width: 100%;
-  padding: 0 15px;
-}
-
-.card__item {
-  display: block;
-  text-decoration: none;
-  color: black;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 10px 5px 4px rgba(45, 36, 102, 0.5);
   position: relative;
-  background: #ffffff;
-  opacity: 85%;
+}
+
+.card__img {
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #939191;
 }
 
 .card__item .front {
@@ -165,15 +138,6 @@ export default {
 
 .card__item:hover .back {
   transform: rotateY(0);
-}
-
-.card__img {
-  width: 100%;
-  align-items: center;
-  margin-bottom: 10px;
-  object-fit: cover;
-  display: flex;
-  border-radius: 10px;
 }
 
 .card__name {
