@@ -1,38 +1,34 @@
 <template>
   <div className="user">
     <div className="container" v-if="!loading && data">
-      <div className="front">
-        <img
-          className="card__img"
-          :src="data.avatar"
-          alt="avatar"
-          @error="defaultAvatar"
-        />
-        <div className="card__name">
-          {{ data.first_name }} {{ data.last_name }}
-        </div>
-        <div className="card__text">Должность: {{ data.employment.title }}</div>
+      <img
+        className="card__img"
+        :src="data.avatar"
+        alt="avatar"
+        @error="defaultAvatar"
+      />
+      <div className="card__name">
+        {{ data.first_name }} {{ data.last_name }}
       </div>
-      <div className="back">
-        <div className="card__text">
-          <h4>Email:</h4>
-          {{ data.email }}
-        </div>
-        <div className="card__text">
-          <h4>Телефон:</h4>
-          {{ data.phone_number }}
-        </div>
-        <div className="card__text">
-          <h4>Дата рождения:</h4>
-          {{ data.date_of_birth }}
-        </div>
-        <div className="card__text">
-          <h4>Адрес:</h4>
-          {{ data.address.zip_code }} {{ data.address.country }}
-          {{ data.address.state }} {{ data.address.city }}
-          {{ data.address.street_name }}
-          {{ data.address.street_address }}
-        </div>
+      <div className="card__text">Должность: {{ data.employment.title }}</div>
+      <div className="card__text">
+        <span>Email:</span>
+        {{ data.email }}
+      </div>
+      <div className="card__text">
+        <span>Телефон:</span>
+        {{ data.phone_number }}
+      </div>
+      <div className="card__text">
+        <span>Дата рождения:</span>
+        {{ data.date_of_birth }}
+      </div>
+      <div className="card__text">
+        <span>Адрес:</span>
+        {{ data.address.zip_code }} {{ data.address.country }}
+        {{ data.address.state }} {{ data.address.city }}
+        {{ data.address.street_name }}
+        {{ data.address.street_address }}
       </div>
     </div>
     <p v-if="loading">Loading...</p>
@@ -117,37 +113,16 @@ export default {
   background: #939191;
 }
 
-.card__item .front {
-  backface-visibility: hidden;
-  transition: all 0.5s ease;
-}
-
-.card__item .back {
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 10px;
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-  transition: all 0.5s ease;
-}
-
-.card__item:hover .front {
-  transform: rotateY(-180deg);
-}
-
-.card__item:hover .back {
-  transform: rotateY(0);
-}
-
 .card__name {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-h4 {
+span {
   margin: 0;
+  padding-right: 5px;
+  font-weight: 900;
 }
 
 .card__text {

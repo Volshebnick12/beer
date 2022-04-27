@@ -2,35 +2,35 @@
   <div class="beer">
     <div className="container" v-if="!loading && data">
       <div className="text__block">
-        <h4>Бренд:</h4>
+        <span>Бренд:</span>
         {{ data.brand }}
       </div>
       <div className="text__block">
-        <h4>Название:</h4>
+        <span>Название:</span>
         {{ data.name }}
       </div>
       <div className="text__block">
-        <h4>Стиль:</h4>
+        <span>Стиль:</span>
         {{ data.style }}
       </div>
       <div className="text__block">
-        <h4>Хмель:</h4>
+        <span>Хмель:</span>
         {{ data.hop }}
       </div>
       <div className="text__block">
-        <h4>Солод:</h4>
+        <span>Солод:</span>
         {{ data.malts }}
       </div>
       <div className="text__block">
-        <h4>Алк:</h4>
+        <span>Алк:</span>
         {{ data.alcohol }}
       </div>
       <div className="text__block">
-        <h4>IBU:</h4>
+        <span>IBU:</span>
         {{ data.ibu }}
       </div>
       <div className="text__block">
-        <h4>Плотность:</h4>
+        <span>Плотность:</span>
         {{ data.blg }}
       </div>
       <button className="button" @click="fetchData">Хочу другое пиво!</button>
@@ -101,7 +101,7 @@ export default {
   margin: 5px;
 }
 
-h4 {
+span {
   margin: 0;
   padding-right: 5px;
   font-weight: 900;
@@ -109,7 +109,6 @@ h4 {
 
 .text__block {
   display: flex;
-  font-weight: 600;
   margin-bottom: 10px;
 }
 

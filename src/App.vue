@@ -30,18 +30,9 @@ body {
 
 .main {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 20px;
-}
-
-@media screen and (max-width: 900px) {
-  body {
-    height: 100vh;
-  }
-
-  .main {
-    display: block;
-  }
 }
 </style>
