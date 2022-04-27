@@ -35,15 +35,19 @@
       </div>
       <button className="button" @click="fetchData">Хочу другое пиво!</button>
     </div>
-    <p v-if="loading">Loading...</p>
+    <SpinnerComponent v-if="loading" />
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
+import SpinnerComponent from "./Spinner.vue";
 
 export default {
   name: "BeerComponent",
+  components: {
+    SpinnerComponent,
+  },
   props: {},
   setup() {
     const data = ref(null);

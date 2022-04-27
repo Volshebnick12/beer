@@ -31,16 +31,20 @@
         {{ data.address.street_address }}
       </div>
     </div>
-    <p v-if="loading">Loading...</p>
+    <SpinnerComponent v-if="loading" />
   </div>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
 import img from "@/assets/avatar.png";
+import SpinnerComponent from "./Spinner.vue";
 
 export default {
   name: "UserComponent",
+  components: {
+    SpinnerComponent,
+  },
   props: {},
   methods: {
     defaultAvatar(e) {
